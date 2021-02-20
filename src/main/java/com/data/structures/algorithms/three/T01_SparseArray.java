@@ -1,5 +1,13 @@
 package com.data.structures.algorithms.three;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class T01_SparseArray {
 
   public static void main(String[] args) {
@@ -12,7 +20,7 @@ public class T01_SparseArray {
     System.out.println("原始二位数组....");
     for (int[] row : chessArr1) {
       for (int data : row) {
-        System.out.printf("%d\t",data);
+        System.out.printf("%d\t", data);
       }
       System.out.println();
     }
@@ -23,7 +31,7 @@ public class T01_SparseArray {
     for (int i = 0; i < 11; i++) {
       for (int j = 0; j < 11; j++) {
         if (chessArr1[i][j] != 0) {
-          sum ++;
+          sum++;
         }
       }
     }
@@ -56,6 +64,14 @@ public class T01_SparseArray {
       System.out.println();
     }
 
+    saveSparse(sparseArr);
+    int[][] ints = readSparse();
+    System.out.println("输出读取磁盘的稀疏数组....");
+    for (int i = 0; i < ints.length; i++) {
+      System.out.printf("%d\t%d\t%d\t", ints[i][0], ints[i][1], ints[i][2]);
+      System.out.println();
+    }
+
     //将稀疏数组 恢复成 原始的二维数组
     //1.读取稀疏数组一行一列,一行二列创建数组
     int chessArr2[][] = new int[sparseArr[0][0]][sparseArr[0][1]];
@@ -74,5 +90,103 @@ public class T01_SparseArray {
       }
       System.out.println();
     }
+  }
+
+  public static void saveSparse(int[][] sparseArr) {
+    System.out.println("===========sparseArr.length==========" + sparseArr.length);
+    FileWriter fileWriter = null;
+    try {
+      File file = new File("sparseArr.txt");
+      if (!file.exists()) {
+        file.createNewFile();
+      }
+      fileWriter = new FileWriter(file);
+      for (int i = 0; i < sparseArr.length; i++) {
+        //6.数据前两列加入","
+        for (int j = 0; j < sparseArr[0].length - 1; j++) {
+          fileWriter.write(sparseArr[i][j] + ",");
+        }
+        //7.数组最后一列后面不加","
+        fileWriter.write(sparseArr[i][sparseArr[0].length - 1] + "");
+        //8.加上换行符
+        fileWriter.write("\n");
+      }
+      fileWriter.flush();
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        //11.如果writeFile不为空，就将其关闭
+        if (fileWriter != null) {
+          fileWriter.close();
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  //读取磁盘中的文件，转换为稀疏数组
+  public static int[][] readSparse() {
+    //1.声明一个字符输入流
+    FileReader reader = null;
+    //2.声明一个字符输入缓冲流
+    BufferedReader readerBuf = null;
+    //3.声明一个二维数组
+    int[][] sparseArr = null;
+    try {
+      //4.指定reader的读取路径
+      reader = new FileReader("sparseArr.txt");
+      //5.通过BufferedReader包装字符输入流
+      readerBuf = new BufferedReader(reader);
+      //6.创建一个集合，用来存放读取的文件的数据
+      List<String> strList = new ArrayList<>();
+      //7.用来存放一行的数据
+      String lineStr;
+      //8.逐行读取txt文件中的内容
+      while ((lineStr = readerBuf.readLine()) != null) {
+        //9.把读取的行添加到list中
+        strList.add(lineStr);
+      }
+      //10.获取文件有多少行
+      int lineNum = strList.size();
+      String s = strList.get(0);
+      String[] split = s.split("\\,");
+      //11.根据文件行数创建对应的数组
+      sparseArr = new int[lineNum][split.length];
+      //12.记录输出当前行
+      int count = 0;
+      //13.循环遍历集合，将集合中的数据放入数组中
+      for (String str : strList) {
+        //14.将读取的str按照","分割，用字符串数组来接收
+        String[] ss = str.split("\\,");
+        for (int i = 0; i < ss.length; i++) {
+          sparseArr[count][i] = Integer.valueOf(ss[i]);
+        }
+        //15.将行数 + 1
+        count++;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      //16.关闭字符输入流
+      try {
+        if (reader != null) {
+          reader.close();
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      //17.关闭字符输入缓冲流
+      try {
+        if (readerBuf != null) {
+          readerBuf.close();
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    //18.返回稀疏数组
+    return sparseArr;
   }
 }
