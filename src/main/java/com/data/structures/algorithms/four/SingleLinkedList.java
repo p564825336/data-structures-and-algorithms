@@ -75,7 +75,7 @@ public class SingleLinkedList {
   //修改节点的信息，根据no编号来修改，即no编号不能改
   public void update(HeroNode newHeroNode) {
     //判空
-    if(head.next == null) {
+    if (head.next == null) {
       System.out.println("链表为空");
       return;
     }
@@ -83,11 +83,11 @@ public class SingleLinkedList {
     //定义一个辅助变量
     HeroNode temp = head.next;
     boolean flag = false; //表示是否找到该节点
-    while(true) {
-      if(temp == null) {
+    while (true) {
+      if (temp == null) {
         break; //已经遍历完链表
       }
-      if(temp.no == newHeroNode.no) {
+      if (temp.no == newHeroNode.no) {
         //找到
         flag = true;
         break;
@@ -95,11 +95,11 @@ public class SingleLinkedList {
       temp = temp.next;
     }
     //根据flag 判断是否找到要修改的节点
-    if(flag) {
+    if (flag) {
       temp.name = newHeroNode.name;
       temp.nickName = newHeroNode.nickName;
-    }else { //没有找到
-      System.out.printf("编号 %d 不存在，不能修改~",newHeroNode.no);
+    } else { //没有找到
+      System.out.printf("编号 %d 不存在，不能修改~", newHeroNode.no);
     }
   }
 
@@ -112,11 +112,11 @@ public class SingleLinkedList {
     HeroNode temp = head;
     boolean flag = false; //标志是否找到待删除的节点
 
-    while(true) {
-      if(temp.next == null) { //已经到链表最后
+    while (true) {
+      if (temp.next == null) { //已经到链表最后
         break;
       }
-      if(temp.next.no == no) {
+      if (temp.next.no == no) {
         //找到待删除节点的前一个节点temp
         flag = true;
         break;
@@ -124,12 +124,17 @@ public class SingleLinkedList {
       temp = temp.next; //后移
     }
 
-    if(flag) {
+    if (flag) {
       //删除节点
       temp.next = temp.next.next;
-    }else {
-      System.out.printf("要删除的 %d 节点不存在\n",no);
+    } else {
+      System.out.printf("要删除的 %d 节点不存在\n", no);
     }
   }
+
+  public HeroNode getHead() {
+    return head;
+  }
+
 
 }
