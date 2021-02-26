@@ -17,9 +17,9 @@ public class T01_SingleLinkedListDemo {
 //    singleLinkedList.add(hero4);
 
     singleLinkedList.addByOrder(hero1);
-    singleLinkedList.addByOrder(hero4);
-    singleLinkedList.addByOrder(hero3);
     singleLinkedList.addByOrder(hero2);
+    singleLinkedList.addByOrder(hero3);
+    singleLinkedList.addByOrder(hero4);
     singleLinkedList.list();
 
 //    singleLinkedList.update(new HeroNode(3, "xxx", "yyy"));
@@ -27,15 +27,20 @@ public class T01_SingleLinkedListDemo {
 //    System.out.println("修正后：");
     //显示
 //    singleLinkedList.list();
-    int count = T02.getCount(singleLinkedList.getHead());
-    System.out.println("个数: " + count);
+//    int count = T02.getCount(singleLinkedList.getHead());
+//    System.out.println("个数: " + count);
 
-    HeroNode lastIndexNode = T02.getLastIndexNode(singleLinkedList.getHead(), 3);
-    System.out.println("倒数第index个:　" + lastIndexNode);
+//    HeroNode lastIndexNode = T02.getLastIndexNode(singleLinkedList.getHead(), 3);
+//    System.out.println("倒数第index个:　" + lastIndexNode);
 
-//    singleLinkedList.del(1);
-//    singleLinkedList.del(4);
-//    System.out.println("删除后：");
+    System.out.println( "============================");
+//    T02.reverseList(singleLinkedList.getHead());
+//    singleLinkedList.list();
+    T02.reversePrint(singleLinkedList.getHead());
+
+    singleLinkedList.del(1);
+    singleLinkedList.del(4);
+    System.out.println("删除后：");
 //    //显示
 //    singleLinkedList.list();
   }
