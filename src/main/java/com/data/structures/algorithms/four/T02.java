@@ -96,4 +96,27 @@ public class T02 {
       System.out.println(stack.pop());
     }
   }
+
+  /**
+   * 合并两个有序单链表,合并之后的链表依然有序
+   */
+  public static HeroNode mergeLinkList(HeroNode head1, HeroNode head2) {
+    if (head1.next == null && head2.next == null) {
+      return null;//两个链表都为空
+    }
+    if (head1 == null) {
+      return head2;
+    }
+    if (head2 == null) {
+      return head1;
+    }
+    HeroNode head = null; //新链表的头节点
+    HeroNode current; // current节点指向新链表
+
+    //1.让current指向head1和head2中较小的数据, 得到head节点
+
+
+    return head;
+
+  }
 }
