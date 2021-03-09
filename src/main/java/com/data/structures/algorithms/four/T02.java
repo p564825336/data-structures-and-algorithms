@@ -114,9 +114,58 @@ public class T02 {
     HeroNode current; // current节点指向新链表
 
     //1.让current指向head1和head2中较小的数据, 得到head节点
+    if (head1.no < head2.no) {
+      head = head1;
+      current = head1;
+      head1 = head1.next;
+    } else {
+      head = head2;
+      current = head2;
+      head2 = head2.next;
+    }
 
+    while (head1 != null && head2 != null) {
+      if (head1.no < head2.no) {
+        current.next = head1;
+        current = current.next; //新链表中,current指针的下一个节点对应较小的那个数据
+        head1 = head1.next; //current指针下移
+      } else {
+        current.next = head2;
+        current = current.next;
+        head2 = head2.next;
+      }
+    }
+
+    //合并剩余的元素
+    if (head1 != null) {
+      //说明链表2遍历完成.是空的
+      current.next = head1;
+    }
+
+    if (head2 != null) {
+      //链表1遍历完成,是空的
+      current.next = head2;
+    }
 
     return head;
+
+  }
+
+  public static void main(String[] args) {
+    SingleLinkedList singleLinkedList1 = new SingleLinkedList();
+    SingleLinkedList singleLinkedList2 = new SingleLinkedList();
+
+    for (int i = 0; i < 4; i++) {
+      HeroNode heroNode = new HeroNode(i, String.valueOf(i), String.valueOf(i));
+      singleLinkedList1.add(heroNode);
+    }
+    for (int i = 3; i < 8; i++) {
+      HeroNode heroNode = new HeroNode(i, String.valueOf(i), String.valueOf(i));
+      singleLinkedList2.add(heroNode);
+    }
+
+    SingleLinkedList singleLinkedList3 = new SingleLinkedList();
+    HeroNode heroNode = mergeLinkList(singleLinkedList1.getHead(), singleLinkedList2.getHead());
 
   }
 }
