@@ -117,7 +117,7 @@ public class DoubleLinkedList {
         temp.next.pre = temp.pre;
       }
     } else {
-      System.out.println();
+      System.out.printf("没有找到编号%d的节点\n", no);
     }
   }
 }
